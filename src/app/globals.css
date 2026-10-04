@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -127,4 +127,30 @@
   html {
     @apply font-sans;
   }
+}
+
+/* ---------- Doctor Tracker brand overrides ---------- */
+@theme inline {
+  --font-sans: var(--font-app), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --primary: oklch(0.47 0.1 190);
+  --primary-foreground: oklch(0.985 0 0);
+  --ring: oklch(0.47 0.1 190);
+  --chart-1: oklch(0.55 0.11 190); /* teal: primary series */
+  --chart-2: oklch(0.72 0.14 70); /* amber */
+  --chart-3: oklch(0.6 0.17 25); /* coral: critical */
+  --chart-4: oklch(0.55 0.12 265); /* indigo */
+  --chart-5: oklch(0.7 0.12 150); /* green */
+}
+
+.dark {
+  --primary: oklch(0.72 0.11 190);
+  --primary-foreground: oklch(0.2 0.03 200);
+  --ring: oklch(0.72 0.11 190);
+}
+
+body {
+  font-family: var(--font-app), ui-sans-serif, system-ui, sans-serif;
 }

@@ -120,7 +120,7 @@ export function DashboardView() {
               description={
                 data.patientsOverTime.unit === 'day'
                   ? 'Patients admitted per day'
-                  : 'Patients admitted per month'
+                  : 'Patients admitted per month (current month so far)'
               }
               className="lg:col-span-2"
             >

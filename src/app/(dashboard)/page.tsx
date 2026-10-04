@@ -1,7 +1,10 @@
-import { PageHeader } from '@/components/shared/page-header';
+import { Suspense } from 'react';
+import { DashboardView } from '@/features/stats/dashboard-view';
 
 export default function DashboardPage() {
   return (
-    <PageHeader title="Dashboard" description="Overview of doctors, patients and admissions." />
+    <Suspense>
+      <DashboardView />
+    </Suspense>
   );
 }

@@ -1,8 +1,15 @@
 import type { Metadata } from 'next';
-import { PageHeader } from '@/components/shared/page-header';
+import { Suspense } from 'react';
+import { TableSkeleton } from '@/components/shared/states';
+import { DoctorsView } from '@/features/doctors/doctors-view';
 
 export const metadata: Metadata = { title: 'Doctors' };
 
+// The view reads the URL (useSearchParams), so it renders inside a Suspense boundary
 export default function DoctorsPage() {
-  return <PageHeader title="Doctors" description="Manage doctors and their patients." />;
+  return (
+    <Suspense fallback={<TableSkeleton />}>
+      <DoctorsView />
+    </Suspense>
+  );
 }

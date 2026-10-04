@@ -17,3 +17,6 @@ export const initials = (name: string) =>
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase())
     .join('');
+const compactFormat = new Intl.NumberFormat('en-US', { notation: 'compact' });
+/** 1200 -> "1.2K": axis labels stay short so they never get clipped. */
+export const formatCompact = (value: number) => compactFormat.format(value);

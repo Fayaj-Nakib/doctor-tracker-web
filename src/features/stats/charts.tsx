@@ -15,7 +15,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { capitalize, formatNumber } from '@/lib/format';
+import { capitalize, formatCompact, formatNumber } from '@/lib/format';
 import type { Condition, Overview } from '@/lib/types';
 import { axisProps, tooltipStyle } from './chart-card';
 
@@ -29,7 +29,7 @@ export function AdmissionsChart({ series }: { series: Overview['patientsOverTime
 
   return (
     <ResponsiveContainer width="100%" height={280}>
-      <AreaChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
+      <AreaChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
         <defs>
           <linearGradient id="admissionsFill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={0.35} />
@@ -38,7 +38,7 @@ export function AdmissionsChart({ series }: { series: Overview['patientsOverTime
         </defs>
         <CartesianGrid vertical={false} stroke="var(--border)" />
         <XAxis dataKey="label" {...axisProps} minTickGap={16} />
-        <YAxis {...axisProps} allowDecimals={false} width={48} />
+        <YAxis {...axisProps} allowDecimals={false} width={44} tickFormatter={formatCompact} />
         <Tooltip
           {...tooltipStyle}
           cursor={{ stroke: 'var(--border)' }}
@@ -138,7 +138,7 @@ export function ConditionChart({ data }: { data: Overview['patientsByCondition']
 export function SpecializationChart({ data }: { data: Overview['doctorsBySpecialization'] }) {
   return (
     <ResponsiveContainer width="100%" height={Math.max(200, data.length * 30)}>
-      <BarChart data={data} layout="vertical" margin={{ top: 0, right: 16, left: 0, bottom: 0 }}>
+      <BarChart data={data} layout="vertical" margin={{ top: 0, right: 16, left: 16, bottom: 0 }}>
         <CartesianGrid horizontal={false} stroke="var(--border)" />
         <XAxis type="number" {...axisProps} allowDecimals={false} />
         <YAxis type="category" dataKey="specialization" {...axisProps} width={130} />

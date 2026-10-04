@@ -1,8 +1,14 @@
 import type { Metadata } from 'next';
-import { PageHeader } from '@/components/shared/page-header';
+import { Suspense } from 'react';
+import { TableSkeleton } from '@/components/shared/states';
+import { PatientsView } from '@/features/patients/patients-view';
 
 export const metadata: Metadata = { title: 'Patients' };
 
 export default function PatientsPage() {
-  return <PageHeader title="Patients" description="Search, filter and update every patient." />;
+  return (
+    <Suspense fallback={<TableSkeleton />}>
+      <PatientsView />
+    </Suspense>
+  );
 }

@@ -87,8 +87,8 @@ export function ConditionChart({ data }: { data: Overview['patientsByCondition']
   const total = data.reduce((sum, d) => sum + d.count, 0);
 
   return (
-    <div className="flex flex-col items-center gap-6 sm:flex-row lg:flex-col xl:flex-row">
-      <div className="size-44 shrink-0">
+    <div className="flex flex-col items-center gap-6">
+      <div className="size-40">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -119,9 +119,11 @@ export function ConditionChart({ data }: { data: Overview['patientsByCondition']
               style={{ background: CONDITION_COLORS[d.condition] }}
               aria-hidden
             />
-            <span className="flex-1">{capitalize(d.condition)}</span>
-            <span className="font-medium tabular-nums">{formatNumber(d.count)}</span>
-            <span className="text-muted-foreground w-12 text-right tabular-nums">
+            <span className="min-w-0 flex-1 truncate">{capitalize(d.condition)}</span>
+            <span className="font-medium whitespace-nowrap tabular-nums">
+              {formatNumber(d.count)}
+            </span>
+            <span className="text-muted-foreground w-10 shrink-0 text-right whitespace-nowrap tabular-nums">
               {total ? Math.round((d.count / total) * 100) : 0}%
             </span>
           </li>
@@ -132,25 +134,19 @@ export function ConditionChart({ data }: { data: Overview['patientsByCondition']
 }
 
 /** How the doctors are spread across specializations. */
+/** Horizontal bars: long specialization names stay readable without rotated labels. */
 export function SpecializationChart({ data }: { data: Overview['doctorsBySpecialization'] }) {
   return (
-    <ResponsiveContainer width="100%" height={260}>
-      <BarChart data={data} margin={{ top: 8, right: 8, left: -24, bottom: 0 }}>
-        <CartesianGrid vertical={false} stroke="var(--border)" />
-        <XAxis
-          dataKey="specialization"
-          {...axisProps}
-          interval={0}
-          angle={-35}
-          textAnchor="end"
-          height={70}
-        />
-        <YAxis {...axisProps} allowDecimals={false} />
+    <ResponsiveContainer width="100%" height={Math.max(200, data.length * 30)}>
+      <BarChart data={data} layout="vertical" margin={{ top: 0, right: 16, left: 0, bottom: 0 }}>
+        <CartesianGrid horizontal={false} stroke="var(--border)" />
+        <XAxis type="number" {...axisProps} allowDecimals={false} />
+        <YAxis type="category" dataKey="specialization" {...axisProps} width={130} />
         <Tooltip
           {...tooltipStyle}
           formatter={(value) => [formatNumber(Number(value)), 'Doctors']}
         />
-        <Bar dataKey="count" fill="var(--chart-4)" radius={[4, 4, 0, 0]} maxBarSize={32} />
+        <Bar dataKey="count" fill="var(--chart-4)" radius={[0, 4, 4, 0]} barSize={18} />
       </BarChart>
     </ResponsiveContainer>
   );
